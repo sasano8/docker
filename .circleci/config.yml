@@ -10,6 +10,16 @@ jobs:
     - run: echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
     - run: docker push sasano8/basic_template_python37:latest
     - run: python dockerfm/pushreadme.py sasano8/basic_template_python37 ./dockerfm/template/python37/README.md
+  dockerfm-build-sasano8/basic_template_alpine:
+    docker:
+    - image: circleci/python:3.6.4
+    steps:
+    - checkout
+    - setup_remote_docker
+    - run: docker build -t sasano8/basic_template_alpine:latest ./dockerfm/template/alpine
+    - run: echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+    - run: docker push sasano8/basic_template_alpine:latest
+    - run: python dockerfm/pushreadme.py sasano8/basic_template_alpine ./dockerfm/template/alpine/README.md
   dockerfm-build-sasano8/basic_fastapi_backend:
     docker:
     - image: circleci/python:3.6.4
@@ -30,10 +40,22 @@ jobs:
     - run: echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
     - run: docker push sasano8/basic_fastapi_celery:latest
     - run: python dockerfm/pushreadme.py sasano8/basic_fastapi_celery ./dockerfm/fastapi/celery/README.md
+  dockerfm-build-sasano8/basic_fastapi_docs:
+    docker:
+    - image: circleci/python:3.6.4
+    steps:
+    - checkout
+    - setup_remote_docker
+    - run: docker build -t sasano8/basic_fastapi_docs:latest ./dockerfm/fastapi/docs
+    - run: echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+    - run: docker push sasano8/basic_fastapi_docs:latest
+    - run: python dockerfm/pushreadme.py sasano8/basic_fastapi_docs ./dockerfm/fastapi/docs/README.md
 workflows:
   version: 2
   build_and_test:
     jobs:
     - dockerfm-build-sasano8/basic_template_python37
+    - dockerfm-build-sasano8/basic_template_alpine
     - dockerfm-build-sasano8/basic_fastapi_backend
     - dockerfm-build-sasano8/basic_fastapi_celery
+    - dockerfm-build-sasano8/basic_fastapi_docs
