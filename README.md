@@ -3,6 +3,7 @@ dockerfmのフォルダ構成（docker-composeおよびにDockerfileの管理ル
 フォルダ構成は、以下のようにdockerfm/{docker-compose group}/{docker image}の構成に従うこと。
 これによりCircleCI経由で、フォルダ名に従ったイメージがDockerHubに自動プッシュされます。
 ``` yml
+format: ymltree
 ./:
   - .circleci:
     - config.yml（自動生成）
