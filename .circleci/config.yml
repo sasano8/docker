@@ -1,39 +1,21 @@
-version: 2
+version: 2.1
+
+orbs:
+  python: circleci/python@0.2.1
+
 jobs:
-  dockerfm-build-sasano8/basic_template_python37:
-    docker:
-    - image: circleci/python:3.6.4
+  build-and-test:
+    executor: python/default
     steps:
-    - checkout
-    - setup_remote_docker
-    - run: docker build -t sasano8/basic_template_python37:latest ./dockerfm/template/python37
-    - run: echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
-    - run: docker push sasano8/basic_template_python37:latest
-    - run: python dockerfm/pushreadme.py sasano8/basic_template_python37 ./dockerfm/template/python37/README.md
-  dockerfm-build-sasano8/basic_fastapi_backend:
-    docker:
-    - image: circleci/python:3.6.4
-    steps:
-    - checkout
-    - setup_remote_docker
-    - run: docker build -t sasano8/basic_fastapi_backend:latest ./dockerfm/fastapi/backend
-    - run: echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
-    - run: docker push sasano8/basic_fastapi_backend:latest
-    - run: python dockerfm/pushreadme.py sasano8/basic_fastapi_backend ./dockerfm/fastapi/backend/README.md
-  dockerfm-build-sasano8/basic_fastapi_celery:
-    docker:
-    - image: circleci/python:3.6.4
-    steps:
-    - checkout
-    - setup_remote_docker
-    - run: docker build -t sasano8/basic_fastapi_celery:latest ./dockerfm/fastapi/celery
-    - run: echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
-    - run: docker push sasano8/basic_fastapi_celery:latest
-    - run: python dockerfm/pushreadme.py sasano8/basic_fastapi_celery ./dockerfm/fastapi/celery/README.md
+      - checkout
+      - python/load-cache
+      - python/install-deps
+      - python/save-cache
+      - run:
+          command: ./manage.py test
+          name: Test
+
 workflows:
-  version: 2
-  build_and_test:
+  main:
     jobs:
-    - dockerfm-build-sasano8/basic_template_python37
-    - dockerfm-build-sasano8/basic_fastapi_backend
-    - dockerfm-build-sasano8/basic_fastapi_celery
+      - build-and-test
