@@ -22,14 +22,12 @@ dockerfmのフォルダ構成（docker-composeおよびにDockerfileの管理ル
       - alpine:
         - Dockerfile
         - README.md
-        - index.html
       - python37:
         - Dockerfile
         - README.md
-        - index.html
-      - traefik:
-        - README.md
-        - docker-compose.yml
+    - traefik:
+      - README.md
+      - docker-compose.yml
 ```
 
 # Feature
