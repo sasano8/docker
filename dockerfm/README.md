@@ -1,0 +1,2 @@
+# about
+本フォルダはdockerfileおよびにdocker-composeの管理用フォルダです。

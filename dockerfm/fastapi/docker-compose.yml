@@ -1,0 +1,52 @@
+version: '3.4'
+
+# args
+# mount_path: /opt/fastapi/ # forbidden /opt/project because default mout point in pycharm for debug.
+
+services:
+  python37base:
+    image: sasano8/python37base
+    build:
+      context: .
+      dockerfile: ./dockerfiles/python37base.dockerfile
+        
+  backend_prebuild:
+    image: sasano8/backend_prebuild
+    depends_on:
+      - python37base
+    build:
+      context: .
+      dockerfile: ./dockerfiles/backend_prebuild.dockerfile
+      args:
+        - PROJECTROOT
+    environment:
+      - PROJECTROOT
+      
+  backend:
+    image: sasano8/backend
+    depends_on:
+      - backend_prebuild
+    build:
+      context: .
+      dockerfile: ./dockerfiles/backend.dockerfile
+      args:
+        - PROJECTROOT
+    environment:
+      - PROJECTROOT
+      - UVICORN_HOST
+      - UVICORN_PORT
+      - UVICORN_DEBUG_PORT
+    expose:
+      - ${UVICORN_PORT}
+      - ${UVICORN_DEBUG_PORT}
+    ports:
+      - 80:${UVICORN_PORT}
+      - 8080:${UVICORN_DEBUG_PORT}
+    volumes:
+      - .:${PROJECTROOT}
+    command: bash -c "
+      echo poetry.lock;
+      poetry install;
+      uvicorn --reload --host ${UVICORN_HOST} --port ${UVICORN_PORT} main:app;
+      "
+

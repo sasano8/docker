@@ -1,0 +1,4 @@
+[tool.dockerfm]
+dockerfm_dir = "./dockerfm/"
+user = "sasano8"
+project = "basic"
