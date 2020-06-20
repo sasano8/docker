@@ -6,10 +6,10 @@ dockerfmのフォルダ構成（docker-composeおよびにDockerfileの管理ル
 format: ymltree
 ./:
   - .circleci:
-    - config.yml（自動生成）
+    - config.yml（コマンドにより自動更新）
   - dockerfm:
     - README.md
-    - pushreadme.py（自動生成）
+    - pushreadme.py（初期化時のみ自動生成）
     - fastapi:
       - README.md
       - docker-compose.yml
