@@ -9,7 +9,7 @@ RUN sudo apt -y update && \
 
 RUN sudo ln -s /usr/bin/pip3 /usr/bin/pip
 
-# RUN pip3 install --no-cache-dir \
+RUN sudo pip install --upgrade keyrings.alt
 RUN sudo pip install -U pip \
 sudo pip install --no-cache-dir \
 poetry \
