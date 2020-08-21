@@ -2,7 +2,7 @@ version: 2
 jobs:
   dockerfm-build-sasano8/basic_fastapi_selenium-standalone-chrome-debug:
     docker:
-    - image: circleci/python:3.8.0
+    - image: circleci/python:3.6.4
     steps:
     - checkout
     - setup_remote_docker
