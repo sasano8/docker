@@ -11,9 +11,9 @@ RUN sudo ln -s /usr/bin/pip3 /usr/bin/pip
 
 # RUN pip3 install --no-cache-dir \
 RUN sudo pip install --no-cache-dir \
-uvicorn \
+poetry \
 gunicorn \
-poetry
+uvicorn
 
 RUN poetry config virtualenvs.create false && \
     poetry config virtualenvs.in-project false
