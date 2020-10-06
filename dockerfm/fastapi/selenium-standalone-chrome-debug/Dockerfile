@@ -1,6 +1,6 @@
 FROM selenium/standalone-chrome-debug
 RUN cat /proc/version
-RUN python3 --version
+RUN sudo python3 --version
 RUN sudo apt-get remove -y python3
 
 # RUN sudo apt-get update && sudo apt install -y python3.8 python3.8-dev
@@ -20,6 +20,7 @@ RUN sudo apt -y update && \
 RUN sudo ln -s /usr/bin/pip3 /usr/bin/pip
 
 RUN sudo apt-get install -y python3-distutils  # pipインストール後でないと動かない？
+RUN sudo python3 -m sysconfig
 
 RUN sudo pip install --upgrade keyrings.alt
 RUN sudo pip install -U pip \
