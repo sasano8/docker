@@ -20,9 +20,9 @@ RUN sudo apt -y update && \
 RUN sudo ln -s /usr/bin/pip3 /usr/bin/pip
 
 RUN sudo apt-get install -y python3-distutils  # pipインストール後でないと動かない？
-RUN sudo python3 -m sysconfig
+RUN sudo python3 -m distutils.sysconfig
 
-RUN sudo pip install --upgrade keyrings.alt
+RUN sudo pip3 install --upgrade keyrings.alt
 RUN sudo pip install -U pip \
 sudo pip install --no-cache-dir \
 poetry \
