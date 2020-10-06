@@ -13,8 +13,8 @@ RUN sudo add-apt-repository -y ppa:deadsnakes/ppa
 RUN sudo apt-get update && sudo apt install -y python3.9 python3.9-dev
 RUN sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.9 1
 
-RUN sudo apt-get remove -y python3-distutils
-RUN sudo apt-get install -y python3-distutils
+# RUN sudo apt-get remove -y python3-distutils
+RUN sudo apt-get install -y python3.9-distutils
 RUN sudo python3 -m distutils.sysconfig
 
 RUN sudo apt -y update && \
