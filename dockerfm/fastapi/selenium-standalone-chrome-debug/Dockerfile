@@ -24,7 +24,7 @@ RUN sudo apt -y update && \
 RUN sudo ln -s /usr/bin/pip3 /usr/bin/pip
 
 RUN sudo pip3 install setuptools --upgrade
-RUN sudo pip install distlib --upgrade
+RUN sudo pip3 install distlib --upgrade
 RUN sudo pip3 install --upgrade keyrings.alt
 RUN sudo pip3 install -U pip \
 sudo pip3 install --no-cache-dir \
