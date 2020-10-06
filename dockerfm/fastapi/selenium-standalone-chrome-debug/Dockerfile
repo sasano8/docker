@@ -1,4 +1,5 @@
 FROM selenium/standalone-chrome-debug
+RUN cat /proc/version
 
 # RUN sudo apt-get update && sudo apt install -y python3.8 python3.8-dev
 # RUN sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.8 1
